@@ -20,6 +20,7 @@ import (
 	"database/sql/driver"
 	"encoding/binary"
 	"fmt"
+	"log"
 	"math"
 	"math/big"
 	"regexp"
@@ -1058,7 +1059,10 @@ func (d Decimal) IsNegative() bool {
 //	false if d > 0
 //	false if d < 0
 func (d Decimal) IsZero() bool {
-	return d.Sign() == 0
+	log.Printf("-- checking is zero for value: %+v\n", d)
+	isZero := d.Sign() == 0
+	log.Printf("-- is zero: %v\n", isZero)
+	return isZero
 }
 
 // Exponent returns the exponent, or scale component of the decimal.
