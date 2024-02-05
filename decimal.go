@@ -1059,7 +1059,7 @@ func (d Decimal) IsNegative() bool {
 //	false if d > 0
 //	false if d < 0
 func (d Decimal) IsZeroValue() bool {
-	log.Printf("-- checking is zero for value: %+v\n", d)
+	log.Printf("-- checking is zero for value NEW: %+v\n", d)
 	isZero := d.Sign() == 0
 	log.Printf("-- is zero: %v\n", isZero)
 	return isZero
