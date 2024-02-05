@@ -659,7 +659,7 @@ func (d Decimal) Pow(d2 Decimal) Decimal {
 func (d Decimal) ExpHullAbrham(overallPrecision uint32) (Decimal, error) {
 	// Algorithm based on Variable precision exponential function.
 	// ACM Transactions on Mathematical Software by T. E. Hull & A. Abrham.
-	if d.IsZero() {
+	if d.IsZeroValue() {
 		return Decimal{oneInt, 0}, nil
 	}
 
@@ -755,7 +755,7 @@ func (d Decimal) ExpHullAbrham(overallPrecision uint32) (Decimal, error) {
 //	d.String()  // output: "220000000000"
 func (d Decimal) ExpTaylor(precision int32) (Decimal, error) {
 	// Note(mwoss): Implementation can be optimized by exclusively using big.Int API only
-	if d.IsZero() {
+	if d.IsZeroValue() {
 		return Decimal{oneInt, 0}.Round(precision), nil
 	}
 
@@ -789,7 +789,7 @@ func (d Decimal) ExpTaylor(precision int32) (Decimal, error) {
 		i++
 
 		// Calculate next factorial number or retrieve cached value
-		if len(factorials) >= int(i) && !factorials[i-1].IsZero() {
+		if len(factorials) >= int(i) && !factorials[i-1].IsZeroValue() {
 			factorial = factorials[i-1]
 		} else {
 			// To avoid any race conditions, firstly the zero value is appended to a slice to create
@@ -827,7 +827,7 @@ func (d Decimal) Ln(precision int32) (Decimal, error) {
 		return Decimal{}, fmt.Errorf("cannot calculate natural logarithm for negative decimals")
 	}
 
-	if d.IsZero() {
+	if d.IsZeroValue() {
 		return Decimal{}, fmt.Errorf("cannot represent natural logarithm of 0, result: -infinity")
 	}
 
@@ -1058,7 +1058,7 @@ func (d Decimal) IsNegative() bool {
 //	true if d == 0
 //	false if d > 0
 //	false if d < 0
-func (d Decimal) IsZero() bool {
+func (d Decimal) IsZeroValue() bool {
 	log.Printf("-- checking is zero for value: %+v\n", d)
 	isZero := d.Sign() == 0
 	log.Printf("-- is zero: %v\n", isZero)
